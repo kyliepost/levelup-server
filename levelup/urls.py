@@ -20,7 +20,7 @@ from rest_framework import routers
 from levelupapi.views.auth import login_user, register_user
 from levelupapi.views.event_view import EventView
 from levelupapi.views.game_type_view import GameTypeView
-from levelupapi.views.game_type_view import GameView
+from levelupapi.views.game import GameView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'gametypes', GameTypeView, 'gametype')

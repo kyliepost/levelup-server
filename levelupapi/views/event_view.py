@@ -75,4 +75,3 @@ class EventSerializer(ModelSerializer):
         model = Event
         fields = ['id', 'organizer', 'game', 'date', 'time', 'description']
         depth = 2
-        
