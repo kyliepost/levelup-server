@@ -5,7 +5,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework.serializers import ModelSerializer
 from django.contrib.auth.models import User
-
+from rest_framework.decorators import action
 from levelupapi.models import Gamer, Game, Event
 
 class EventView(ViewSet):
@@ -51,6 +51,22 @@ class EventView(ViewSet):
         event.save()
 
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
+    @action(methods=['post', 'delete'], detail=True)
+    def signup(self, request, pk):
+        # url: /events/pk/signup
+        gamer = Gamer.objects.get(user=request.auth.user)
+
+        event = Event.objects.get(pk=pk)
+
+        if request.method == 'POST':
+            event.attendees.add(gamer)
+
+            return Response({}, status=status.HTTP_201_CREATED)
+
+        if request.method == "DELETE":
+            event.attendees.remove(gamer)
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
 
 
 
@@ -73,5 +89,5 @@ class EventSerializer(ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ['id', 'organizer', 'game', 'date', 'time', 'description']
+        fields = ['id', 'organizer', 'game', 'date', 'time', 'description', 'attendees']
         depth = 2

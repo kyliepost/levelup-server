@@ -70,8 +70,9 @@ class GameView(ViewSet):
             return Response({'message': 'Game not found'}, status=status.HTTP_404_NOT_FOUND)
 
 
+
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ['id', 'title', 'maker', 'number_of_players', 'gamer']
+        fields = ['id', 'title', 'maker', 'number_of_players', 'gamer', 'skill_level']
         depth = 1
