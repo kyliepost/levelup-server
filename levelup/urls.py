@@ -19,6 +19,7 @@ from levelupapi.views.auth import login_user, register_user
 from levelupapi.views.event_view import EventView
 from levelupapi.views.game_type_view import GameTypeView
 from levelupapi.views.game import GameView
+from levelupapi.views.profile import user_profile
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'gametypes', GameTypeView, 'gametype')
@@ -29,5 +30,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login', login_user),
     path('register', register_user),
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('profile', user_profile),
 ]
